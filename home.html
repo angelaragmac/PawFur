@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - PAWFUR</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="app-body">
+
+    <header class="site-header">
+        <a href="home.html" class="logo">🐾 PAWFUR</a>
+        <nav>
+            <a class="active" href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="vet-locator.html">Vet Locator</a>
+            <a href="booking.html">Booking</a>
+        </nav>
+        <div class="user-area">
+            <span id="userName"></span>
+            <button id="logoutButton" class="logout-button">Logout</button>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="home-hero">
+            <div>
+                <h1>Hello, <span id="welcomeUser">Pet Lover</span>! 🐾</h1>
+                <h2>Let's Give Your Pets the Best Care.</h2>
+                <p>Find a veterinarian, book an appointment, or ask our PAWFUR assistant for help.</p>
+                <a href="vet-locator.html" class="main-button">Find a Veterinarian</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=900"
+                 alt="Happy dog">
+        </section>
+
+        <section class="quick-links">
+            <h2>What Do You Need Today?</h2>
+            <div class="feature-grid">
+                <a href="about.html" class="feature-card">
+                    <span>🐾</span>
+                    <h3>About PAWFUR</h3>
+                    <p>Learn more about our website.</p>
+                </a>
+                <a href="services.html" class="feature-card">
+                    <span>🩺</span>
+                    <h3>Pet Services</h3>
+                    <p>Explore available pet care services.</p>
+                </a>
+                <a href="vet-locator.html" class="feature-card">
+                    <span>📍</span>
+                    <h3>Find a Vet</h3>
+                    <p>Search for veterinary clinics.</p>
+                </a>
+                <a href="booking.html" class="feature-card">
+                    <span>📅</span>
+                    <h3>Book an Appointment</h3>
+                    <p>Request a veterinary appointment.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

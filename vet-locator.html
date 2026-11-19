@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vet Locator | PAWFUR</title>
+
+    <!-- CSS CONNECTION -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="index.html" class="logo">
+            🐾 PAWFUR
+        </a>
+
+        <a href="index.html" class="back-link">
+            ← Back to Home
+        </a>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="locator-container">
+
+        <section class="intro">
+            <div class="paw-icon">🐾</div>
+
+            <h1>Find a Veterinarian</h1>
+
+            <p>
+                Your pet deserves the best care!
+                Find veterinary clinics near your location.
+            </p>
+        </section>
+
+        <!-- SEARCH CARD -->
+        <section class="search-card">
+
+            <h2>📍 Search for Nearby Vets</h2>
+
+            <p>
+                Enter your city, municipality, or location
+                to find veterinary clinics.
+            </p>
+
+            <form id="vetSearchForm">
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Example: Koronadal City"
+                    required
+                >
+
+                <button type="submit">
+                    🔍 Search Vets
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- MAP SECTION -->
+        <section class="map-card">
+
+            <div class="map-heading">
+                <h2>🐶 Veterinary Clinics Map</h2>
+
+                <span class="map-label">
+                    Google Maps
+                </span>
+            </div>
+
+            <div class="map-container">
+
+                <iframe
+                    id="vetMap"
+                    src="https://maps.google.com/maps?q=veterinary%20clinics%20Philippines&output=embed"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Veterinary Clinics Map">
+                </iframe>
+
+            </div>
+
+            <a
+                id="mapsLink"
+                href="https://www.google.com/maps/search/veterinary+clinics+Philippines"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="maps-button">
+
+                Open in Google Maps ↗
+
+            </a>
+
+        </section>
+
+        <!-- REMINDER -->
+        <section class="reminder">
+            <span>💗</span>
+
+            <div>
+                <h3>Take care of your furry friends!</h3>
+
+                <p>
+                    Always consult a licensed veterinarian
+                    for your pet's health concerns.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 PAWFUR | Caring for Pets, One Paw at a Time 🐾</p>
+    </footer>
+
+    <!-- SEARCH FUNCTION -->
+    <script>
+        const searchForm = document.getElementById("vetSearchForm");
+
+        searchForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const location = document
+                .getElementById("locationInput")
+                .value.trim();
+
+            if (location === "") {
+                alert("Please enter your location.");
+                return;
+            }
+
+            const searchQuery = "veterinary clinics near " + location;
+
+            const encodedQuery = encodeURIComponent(searchQuery);
+
+            document.getElementById("vetMap").src =
+                "https://maps.google.com/maps?q=" +
+                encodedQuery +
+                "&output=embed";
+
+            document.getElementById("mapsLink").href =
+                "https://www.google.com/maps/search/" +
+                encodedQuery;
+
+        });
+    </script>
+
+</body>
