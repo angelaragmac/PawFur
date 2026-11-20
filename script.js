@@ -1,5 +1,72 @@
 
 // =====================================
+// PAWFUR SHARED HELPERS
+// =====================================
+
+// Pages a visitor may be sent back to after logging in or signing up.
+// Only an exact match from this list is ever used, so the redirect
+// can never point to another website or an unexpected page.
+const ALLOWED_REDIRECTS = ["booking.html"];
+
+function getSafeRedirect() {
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get("redirect");
+
+    return ALLOWED_REDIRECTS.includes(target) ? target : null;
+}
+
+function isUserLoggedIn() {
+    return localStorage.getItem("pawfurLoggedIn") === "true";
+}
+
+// =====================================
+// SHOW / HIDE PASSWORD (login + signup)
+// =====================================
+
+document.querySelectorAll(".password-toggle").forEach(function(button) {
+    const input = document.getElementById(button.dataset.target);
+
+    if (!input) {
+        return;
+    }
+
+    button.addEventListener("click", function() {
+        const isShowing = input.type === "text";
+        const label = isShowing ? "Show password" : "Hide password";
+
+        input.type = isShowing ? "password" : "text";
+
+        button.setAttribute("aria-label", label);
+        button.setAttribute("title", label);
+        button.setAttribute("aria-pressed", String(!isShowing));
+
+        button.querySelector(".icon-eye").classList.toggle("hidden", !isShowing);
+        button.querySelector(".icon-eye-off").classList.toggle("hidden", isShowing);
+    });
+});
+
+// =====================================
+// LOGIN / SIGNUP PAGE: BOOKING NOTICE
+// =====================================
+
+const authRedirect = getSafeRedirect();
+const authNotice = document.getElementById("authNotice");
+
+if (authRedirect) {
+    if (authNotice) {
+        authNotice.textContent =
+            "Please log in or create an account before booking an appointment. 🐾";
+        authNotice.classList.remove("hidden");
+    }
+
+    // Keep the booking destination when switching between Log In and Sign Up
+    document.querySelectorAll(".auth-note a").forEach(function(link) {
+        const base = link.getAttribute("href").split("?")[0];
+        link.setAttribute("href", base + "?redirect=" + encodeURIComponent(authRedirect));
+    });
+}
+
+// =====================================
 // PAWFUR LOGIN AND SIGNUP
 // =====================================
 
@@ -33,6 +100,19 @@ if (signupForm) {
 
         localStorage.setItem("pawfurUsers", JSON.stringify(users));
 
+        // Came from the Booking page: log the new user in and send them back
+        if (authRedirect) {
+            localStorage.setItem("pawfurLoggedIn", "true");
+            localStorage.setItem("pawfurCurrentUser", name);
+
+            message.textContent = "Account created! Taking you to booking...";
+            message.style.color = "green";
+
+            signupForm.reset();
+            window.location.href = authRedirect;
+            return;
+        }
+
         message.textContent = "Account created successfully! You can now log in.";
         message.style.color = "green";
 
@@ -61,7 +141,7 @@ if (loginForm) {
             localStorage.setItem("pawfurLoggedIn", "true");
             localStorage.setItem("pawfurCurrentUser", account.name);
 
-            window.location.href = "home.html";
+            window.location.href = authRedirect || "home.html";
         } else {
             message.textContent = "Incorrect email or password. Please try again.";
             message.style.color = "red";
@@ -86,29 +166,44 @@ if (facebookLogin) {
 }
 
 // =====================================
-// PROTECT WEBSITE PAGES
+// PAGE ACCESS AND NAVIGATION
+// Public pages: home, about, services, vet locator (no login needed)
+// Members only: booking.html (body has data-require-auth="true")
 // =====================================
 
 const isAppPage = document.body.classList.contains("app-body");
+const requiresLogin = document.body.dataset.requireAuth === "true";
+const loggedIn = isUserLoggedIn();
+const accessDenied = requiresLogin && !loggedIn;
 
-if (isAppPage) {
-    const loggedIn = localStorage.getItem("pawfurLoggedIn");
+if (accessDenied) {
+    // Guests cannot open the booking page: send them to login with a friendly notice
+    window.location.replace("login.html?redirect=booking.html");
+} else {
+    document.body.classList.add("auth-ready");
+}
 
-    if (loggedIn !== "true") {
-        window.location.replace("login.html");
-    } else {
-        const user = localStorage.getItem("pawfurCurrentUser") || "Pet Lover";
+if (isAppPage && !accessDenied) {
+    const user = localStorage.getItem("pawfurCurrentUser") || "Pet Lover";
 
-        const userName = document.getElementById("userName");
-        const welcomeUser = document.getElementById("welcomeUser");
+    const userName = document.getElementById("userName");
+    const welcomeUser = document.getElementById("welcomeUser");
 
-        if (userName) {
-            userName.textContent = "Hi, " + user;
-        }
+    // Header: guests see Log In / Sign Up, members see their name / Logout
+    document.querySelectorAll(".guest-only").forEach(function(element) {
+        element.classList.toggle("hidden", loggedIn);
+    });
 
-        if (welcomeUser) {
-            welcomeUser.textContent = user;
-        }
+    document.querySelectorAll(".user-only").forEach(function(element) {
+        element.classList.toggle("hidden", !loggedIn);
+    });
+
+    if (loggedIn && userName) {
+        userName.textContent = "Hi, " + user;
+    }
+
+    if (loggedIn && welcomeUser) {
+        welcomeUser.textContent = user;
     }
 }
 
@@ -143,11 +238,20 @@ if (vetSearchForm) {
         const search = "veterinary clinics near " + location;
         const encodedSearch = encodeURIComponent(search);
 
-        document.getElementById("vetMap").src =
-            "https://maps.google.com/maps?q=" + encodedSearch + "&output=embed";
+        const vetMap = document.getElementById("vetMap");
+        const mapsLink =
+            document.getElementById("mapsLink") ||
+            document.getElementById("googleMapsLink");
 
-        document.getElementById("googleMapsLink").href =
-            "https://www.google.com/maps/search/" + encodedSearch;
+        if (vetMap) {
+            vetMap.src =
+                "https://maps.google.com/maps?q=" + encodedSearch + "&output=embed";
+        }
+
+        if (mapsLink) {
+            mapsLink.href =
+                "https://www.google.com/maps/search/" + encodedSearch;
+        }
     });
 }
 
@@ -170,6 +274,12 @@ if (bookingForm) {
 
     bookingForm.addEventListener("submit", function(event) {
         event.preventDefault();
+
+        // The session may have ended (for example, logged out in another tab)
+        if (!isUserLoggedIn()) {
+            window.location.replace("login.html?redirect=booking.html");
+            return;
+        }
 
         const appointment = {
             owner: document.getElementById("ownerName").value.trim(),
@@ -202,7 +312,7 @@ if (bookingForm) {
 // English, Tagalog and Bisaya
 // =====================================
 
-if (isAppPage) {
+if (isAppPage && !accessDenied) {
 
     // Create chatbot automatically on every website page
     const chatHTML = `
