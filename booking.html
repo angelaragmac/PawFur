@@ -3,105 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - PAWFUR</title>
+    <title>Booking - PAWFUR</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-<body class="app-body">
+<body class="app-body" data-require-auth="true">
 
     <header class="site-header">
         <a href="home.html" class="logo">🐾 PAWFUR</a>
         <nav>
             <a href="home.html">Home</a>
-            <a class="active" href="about.html">About</a>
+            <a href="about.html">About</a>
             <a href="services.html">Services</a>
             <a href="vet-locator.html">Vet Locator</a>
-            <a href="booking.html">Booking</a>
+            <a class="active" href="booking.html">Booking</a>
         </nav>
         <div class="user-area">
-            <span id="userName"></span>
-            <button id="logoutButton" class="logout-button">Logout</button>
+            <!-- Shown only when logged in -->
+            <span id="userName" class="user-only hidden"></span>
+            <button id="logoutButton" class="logout-button user-only hidden" type="button">Logout</button>
+
+            <!-- Shown only to guests -->
+            <a href="login.html" id="loginButton" class="auth-link auth-link-outline guest-only hidden">Log In</a>
+            <a href="signup.html" id="signupButton" class="auth-link auth-link-primary guest-only hidden">Sign Up</a>
         </div>
     </header>
 
     <main class="page-container">
-        <section class="content-card">
-            <h1>About PAWFUR 🐾</h1>
-            <p>
-                PAWFUR is a pet care website designed to help pet owners
-                find veterinary clinics and access helpful pet care information.
-            </p>
+        <section class="booking-card">
+            <h1>Book an Appointment 📅</h1>
+            <p>Fill in your details to request a veterinary appointment.</p>
 
-            <h2>Our Mission</h2>
-            <p>
-                Our mission is to make finding veterinary services easier
-                and help pet owners become more informed about their pets' health.
-            </p>
+            <form id="bookingForm">
+                <label for="ownerName">Owner Name</label>
+                <input type="text" id="ownerName" placeholder="Enter your name" required>
 
-            <h2>Our Vision</h2>
-            <p>
-                We envision a community where every pet owner can easily
-                find information and veterinary assistance for their beloved animals.
-            </p>
+                <label for="petName">Pet Name</label>
+                <input type="text" id="petName" placeholder="Enter your pet's name" required>
 
-            <img class="about-image"
-                 src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1000"
-                 alt="Dogs playing together">
-        </section>
-    </main>
+                <label for="animalType">Type of Animal</label>
+                <select id="animalType" required>
+                    <option value="" disabled selected>Select animal type</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Other">Other</option>
+                </select>
 
-</body>
-</html>
+                <label for="serviceType">Service</label>
+                <select id="serviceType" required>
+                    <option value="" disabled selected>Select a service</option>
+                    <option value="Vaccination">Vaccination</option>
+                    <option value="Health Checkup">Health Checkup</option>
+                    <option value="Grooming">Grooming</option>
+                    <option value="Pet Treatment">Pet Treatment</option>
+                </select>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - PAWFUR</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-<body class="app-body">
+                <label for="appointmentDate">Preferred Date</label>
+                <input type="date" id="appointmentDate" required>
 
-    <header class="site-header">
-        <a href="home.html" class="logo">🐾 PAWFUR</a>
-        <nav>
-            <a href="home.html">Home</a>
-            <a class="active" href="about.html">About</a>
-            <a href="services.html">Services</a>
-            <a href="vet-locator.html">Vet Locator</a>
-            <a href="booking.html">Booking</a>
-        </nav>
-        <div class="user-area">
-            <span id="userName"></span>
-            <button id="logoutButton" class="logout-button">Logout</button>
-        </div>
-    </header>
+                <label for="appointmentTime">Preferred Time</label>
+                <input type="time" id="appointmentTime" required>
 
-    <main class="page-container">
-        <section class="content-card">
-            <h1>About PAWFUR 🐾</h1>
-            <p>
-                PAWFUR is a pet care website designed to help pet owners
-                find veterinary clinics and access helpful pet care information.
-            </p>
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" id="contactNumber" placeholder="Example: 09123456789" required>
 
-            <h2>Our Mission</h2>
-            <p>
-                Our mission is to make finding veterinary services easier
-                and help pet owners become more informed about their pets' health.
-            </p>
+                <button type="submit" class="main-button full-button">Request Appointment</button>
+            </form>
 
-            <h2>Our Vision</h2>
-            <p>
-                We envision a community where every pet owner can easily
-                find information and veterinary assistance for their beloved animals.
-            </p>
-
-            <img class="about-image"
-                 src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1000"
-                 alt="Dogs playing together">
+            <p id="bookingResult" class="form-message"></p>
         </section>
     </main>
 

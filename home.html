@@ -19,8 +19,13 @@
             <a href="booking.html">Booking</a>
         </nav>
         <div class="user-area">
-            <span id="userName"></span>
-            <button id="logoutButton" class="logout-button">Logout</button>
+            <!-- Shown only when logged in -->
+            <span id="userName" class="user-only hidden"></span>
+            <button id="logoutButton" class="logout-button user-only hidden" type="button">Logout</button>
+
+            <!-- Shown only to guests -->
+            <a href="login.html" id="loginButton" class="auth-link auth-link-outline guest-only hidden">Log In</a>
+            <a href="signup.html" id="signupButton" class="auth-link auth-link-primary guest-only hidden">Sign Up</a>
         </div>
     </header>
 

@@ -8,19 +8,30 @@
 
     <!-- CSS CONNECTION -->
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
-<body>
+<body class="app-body">
 
     <!-- HEADER -->
-    <header class="header">
-        <a href="index.html" class="logo">
-            🐾 PAWFUR
-        </a>
+    <header class="site-header">
+        <a href="home.html" class="logo">🐾 PAWFUR</a>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a class="active" href="vet-locator.html">Vet Locator</a>
+            <a href="booking.html">Booking</a>
+        </nav>
+        <div class="user-area">
+            <!-- Shown only when logged in -->
+            <span id="userName" class="user-only hidden"></span>
+            <button id="logoutButton" class="logout-button user-only hidden" type="button">Logout</button>
 
-        <a href="index.html" class="back-link">
-            ← Back to Home
-        </a>
+            <!-- Shown only to guests -->
+            <a href="login.html" id="loginButton" class="auth-link auth-link-outline guest-only hidden">Log In</a>
+            <a href="signup.html" id="signupButton" class="auth-link auth-link-primary guest-only hidden">Sign Up</a>
+        </div>
     </header>
 
     <!-- MAIN CONTENT -->
@@ -121,38 +132,5 @@
     <footer>
         <p>© 2026 PAWFUR | Caring for Pets, One Paw at a Time 🐾</p>
     </footer>
-
-    <!-- SEARCH FUNCTION -->
-    <script>
-        const searchForm = document.getElementById("vetSearchForm");
-
-        searchForm.addEventListener("submit", function(event) {
-
-            event.preventDefault();
-
-            const location = document
-                .getElementById("locationInput")
-                .value.trim();
-
-            if (location === "") {
-                alert("Please enter your location.");
-                return;
-            }
-
-            const searchQuery = "veterinary clinics near " + location;
-
-            const encodedQuery = encodeURIComponent(searchQuery);
-
-            document.getElementById("vetMap").src =
-                "https://maps.google.com/maps?q=" +
-                encodedQuery +
-                "&output=embed";
-
-            document.getElementById("mapsLink").href =
-                "https://www.google.com/maps/search/" +
-                encodedQuery;
-
-        });
-    </script>
 
 </body>
