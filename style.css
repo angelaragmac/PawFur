@@ -1300,3 +1300,139 @@ select:focus-visible {
 .hidden {
     display: none !important;
 }
+
+/* ==================================================
+   17. GUEST ACCESS, HEADER BUTTONS AND PASSWORD TOGGLE
+================================================== */
+
+/* Hide the booking page until the login check has passed */
+body[data-require-auth="true"]:not(.auth-ready) {
+    visibility: hidden;
+}
+
+/* Header: Log In / Sign Up buttons (guests) */
+.auth-link {
+    display: inline-block;
+    padding: 10px 18px;
+
+    border: 2px solid var(--pink-dark);
+    border-radius: 12px;
+
+    font-weight: 900;
+    text-align: center;
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+.auth-link-primary {
+    background: var(--pink);
+    color: var(--white);
+    box-shadow: 0 3px 0 var(--pink-dark);
+}
+
+.auth-link-primary:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    box-shadow: 0 3px 0 #456C50;
+}
+
+.auth-link-outline {
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--pink-dark);
+    box-shadow: 0 3px 0 rgba(185, 95, 125, 0.25);
+}
+
+.auth-link-outline:hover {
+    background: var(--pink-light);
+}
+
+/* Landing page: Get Started + Browse as Guest */
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 5px;
+}
+
+.guest-button {
+    display: inline-block;
+    padding: 11px 20px;
+
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--green-dark);
+
+    border: 2px solid var(--green);
+    border-radius: 12px;
+
+    font-weight: 900;
+    transition: 0.2s;
+}
+
+.guest-button:hover {
+    background: var(--green-light);
+    border-color: var(--green-dark);
+}
+
+/* Login / signup: booking notice */
+.auth-card .notice {
+    margin: 0 0 18px;
+    padding: 13px 15px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Show / hide password */
+.auth-card .password-field {
+    position: relative;
+}
+
+.auth-card .password-field input {
+    padding-right: 48px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+    color: var(--green-dark);
+
+    border: none;
+    border-radius: 8px;
+
+    transition: 0.2s;
+}
+
+.password-toggle:hover {
+    color: var(--pink-dark);
+    background: var(--pink-light);
+}
+
+.password-toggle svg {
+    display: block;
+}
+
+@media (max-width: 850px) {
+    .hero-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .auth-link {
+        padding: 9px 14px;
+    }
+}
