@@ -46,8 +46,21 @@
                     <option value="" disabled selected>Select animal type</option>
                     <option value="Dog">Dog</option>
                     <option value="Cat">Cat</option>
-                    <option value="Other">Other</option>
+                    <option value="Other">Others</option>
                 </select>
+
+                <div id="otherAnimalGroup" class="other-animal-group" hidden>
+                    <label for="otherAnimal">What kind of pet do you have?</label>
+                    <input
+                        type="text"
+                        id="otherAnimal"
+                        name="otherAnimal"
+                        placeholder="e.g., Parrot, lovebird, rabbit, hamster"
+                        autocomplete="off"
+                        maxlength="40"
+                    >
+                    <small class="field-hint">Please specify your pet so the clinic knows what animal needs care.</small>
+                </div>
 
                 <label for="serviceType">Service</label>
                 <select id="serviceType" required>
@@ -70,7 +83,17 @@
                 <button type="submit" class="main-button full-button">Request Appointment</button>
             </form>
 
-            <p id="bookingResult" class="form-message"></p>
+            <section id="bookingSuccess" class="booking-success" role="status" aria-live="polite" hidden>
+                <div class="booking-success-icon" aria-hidden="true">🐾</div>
+                <h2>Appointment Request Saved!</h2>
+                <p id="bookingResult" class="form-message">
+                    Your request has been saved. Please contact a veterinary clinic to confirm your appointment.
+                </p>
+                <a href="vet-locator.html" class="main-button full-button booking-locator-button">
+                    📍 Find Veterinary Services
+                </a>
+                <p class="booking-success-note">You can use the Vet Locator to search for clinics near your location.</p>
+            </section>
         </section>
     </main>
 
