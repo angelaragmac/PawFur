@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PAWFUR</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/01-storage.js" defer></script>
+    <script src="../js/02-session.js" defer></script>
+    <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/04-utils.js" defer></script>
+    <script src="../js/05-auth.js" defer></script>
+    <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/07-vet-locator.js" defer></script>
+    <script src="../js/08-booking.js" defer></script>
+    <script src="../js/09-chatbot.js" defer></script>
+    <script src="../js/10-services-plans.js" defer></script>
+    <script src="../js/11-checkout.js" defer></script>
+    <script src="../js/12-dashboard.js" defer></script>
+</head>
+<body class="auth-body">
+
+    <div class="auth-card">
+        <a href="../index.html" class="logo"><span aria-hidden="true">🐾</span> PAWFUR</a>
+        <h1>Welcome Back!</h1>
+        <p>Log in to continue caring for your pets.</p>
+        <p id="authNotice" class="notice hidden" role="status"></p>
+
+        <form id="loginForm">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+            <label for="loginPassword">Password</label>
+            <div class="password-field">
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                <button type="button" class="password-toggle" data-target="loginPassword"
+                        aria-label="Show password" title="Show password"
+                        aria-controls="loginPassword" aria-pressed="false">
+                    <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg class="icon-eye-off hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+            </div>
+
+            <button type="submit" class="main-button full-button">Log In</button>
+        </form>
+
+        <div class="or-divider">OR</div>
+
+        <button type="button" class="social-button" id="googleLogin">
+            Continue with Google
+        </button>
+
+        <button type="button" class="social-button" id="facebookLogin">
+            Continue with Facebook
+        </button>
+
+        <p class="auth-note">
+            Don't have an account?
+            <a href="signup.html">Sign Up</a>
+        </p>
+
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <p id="loginMessage" class="form-message"></p>
+    </div>
+
+</body>
+</html>
