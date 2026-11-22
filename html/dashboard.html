@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PAWFUR</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/01-storage.js" defer></script>
+    <script src="../js/02-session.js" defer></script>
+    <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/04-utils.js" defer></script>
+    <script src="../js/05-auth.js" defer></script>
+    <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/07-vet-locator.js" defer></script>
+    <script src="../js/08-booking.js" defer></script>
+    <script src="../js/09-chatbot.js" defer></script>
+    <script src="../js/10-services-plans.js" defer></script>
+    <script src="../js/11-checkout.js" defer></script>
+    <script src="../js/12-dashboard.js" defer></script>
+</head>
+<body class="app-body" data-require-auth="true">
+
+    <header class="site-header">
+        <a href="home.html" class="logo"><span aria-hidden="true">🐾</span> PAWFUR</a>
+        <nav class="icon-nav" aria-label="Main navigation">
+            <a class="nav-icon" href="home.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+                <span class="nav-label">Home</span>
+            </a>
+            <a class="nav-icon" href="about.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01" stroke-width="2.6"/></svg>
+                <span class="nav-label">About</span>
+            </a>
+            <a class="nav-icon" href="services.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+                <span class="nav-label">Services</span>
+            </a>
+            <a class="nav-icon" href="vet-locator.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span class="nav-label">Vet Locator</span>
+            </a>
+            <a class="nav-icon" href="booking.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg>
+                <span class="nav-label">Booking</span>
+            </a>
+            <a class="nav-icon active" href="dashboard.html" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                <span class="nav-label">Dashboard</span>
+            </a>
+        </nav>
+        <div class="user-area">
+            <!-- Shown only when logged in -->
+            <span id="userName" class="user-only hidden"></span>
+            <button id="logoutButton" class="logout-button user-only hidden" type="button">Logout</button>
+
+            <!-- Shown only to guests -->
+            <a href="login.html" id="loginButton" class="auth-link auth-link-outline guest-only hidden">Log In</a>
+            <a href="signup.html" id="signupButton" class="auth-link auth-link-primary guest-only hidden">Sign Up</a>
+        </div>
+    </header>
+
+    <main class="page-container" id="dashboardRoot">
+
+        <!-- Welcome -->
+        <section class="dash-hero" aria-labelledby="dash-title">
+            <div>
+                <h1 id="dash-title">Welcome back, <span id="dashName">Pet Lover</span>! 🐾</h1>
+                <p>Here is everything you saved on PAWFUR: pets, appointment requests, and your demo plan.</p>
+            </div>
+            <div class="dash-pets" aria-hidden="true">
+                <img src="../images/dog.svg" alt="">
+                <img src="../images/cat.svg" alt="">
+                <img src="../images/rabbit.svg" alt="">
+            </div>
+        </section>
+
+        <div class="stat-grid">
+            <div class="stat-card"><small>My pets</small><strong id="statPets">0</strong></div>
+            <div class="stat-card"><small>Appointments</small><strong id="statAppointments">0</strong></div>
+            <div class="stat-card"><small>My package</small><strong id="statPlan">None</strong></div>
+            <div class="stat-card"><small>Payments</small><strong id="statPayments">0</strong></div>
+        </div>
+
+        <div class="dash-grid">
+
+            <!-- My Pets -->
+            <section class="panel" id="pets" aria-labelledby="pets-title">
+                <div class="panel-head">
+                    <h2 id="pets-title"><span aria-hidden="true">🐶</span>My Pets</h2>
+                </div>
+                <div id="petList" class="pet-card-grid"></div>
+
+                <details class="add-pet" id="addPetDetails">
+                    <summary class="small-button">＋ Add a pet</summary>
+                    <form id="petForm" novalidate>
+                        <div class="form-grid">
+                            <div>
+                                <label for="petName">Pet name</label>
+                                <input type="text" id="petName" maxlength="40" placeholder="e.g., Bean" required>
+                            </div>
+                            <div>
+                                <label for="petAnimal">Type of animal</label>
+                                <select id="petAnimal" required>
+                                    <option value="" disabled selected>Select animal type</option>
+                                    <option value="Dog">Dog</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Other">Others</option>
+                                </select>
+                            </div>
+                            <div class="span-2" id="petOtherGroup" hidden>
+                                <label for="petOther">What kind of pet is it?</label>
+                                <input type="text" id="petOther" maxlength="40" placeholder="e.g., Rabbit, parrot, hamster">
+                            </div>
+                        </div>
+
+                        <!-- Detailed profile fields: Deluxe demo plan only -->
+                        <div id="deluxePetFields" class="deluxe-fields" hidden>
+                            <div class="form-grid">
+                                <div><label for="petBreed">Breed</label><input type="text" id="petBreed" maxlength="40"></div>
+                                <div><label for="petAge">Age</label><input type="text" id="petAge" maxlength="20" placeholder="e.g., 3 years"></div>
+                                <div><label for="petWeight">Weight (kg)</label><input type="number" id="petWeight" min="0" max="200" step="0.1"></div>
+                                <div><label for="petLastVaccine">Last vaccination</label><input type="date" id="petLastVaccine"></div>
+                                <div><label for="petNextCheckup">Next check-up</label><input type="date" id="petNextCheckup"></div>
+                                <div class="span-2"><label for="petNotes">Care notes</label><input type="text" id="petNotes" maxlength="120" placeholder="Allergies, favorite food, reminders…"></div>
+                            </div>
+                        </div>
+                        <div id="petLocked" class="locked-fields">
+                            🔒 Detailed pet profiles and care tracking are part of the <strong>Deluxe</strong> demo plan.
+                            <a href="services.html#packages">See plans</a>
+                        </div>
+
+                        <button type="submit" class="main-button" style="margin-top:16px">Save pet</button>
+                        <p id="petMessage" class="form-message" role="status"></p>
+                    </form>
+                </details>
+            </section>
+
+            <!-- My Package -->
+            <section class="panel" id="package" aria-labelledby="package-title">
+                <div class="panel-head">
+                    <h2 id="package-title"><span aria-hidden="true">⭐</span>My Package</h2>
+                </div>
+                <div id="packagePanel"></div>
+            </section>
+
+            <!-- My Appointments -->
+            <section class="panel wide" id="appointments" aria-labelledby="appointments-title">
+                <div class="panel-head">
+                    <h2 id="appointments-title"><span aria-hidden="true">📅</span>My Appointments</h2>
+                    <a href="booking.html" class="small-button">＋ New request</a>
+                </div>
+                <div id="appointmentList"></div>
+            </section>
+
+            <!-- Payment History -->
+            <section class="panel" id="payments" aria-labelledby="payments-title">
+                <div class="panel-head">
+                    <h2 id="payments-title"><span aria-hidden="true">🧾</span>Payment History</h2>
+                    <span class="badge badge-demo">DEMO</span>
+                </div>
+                <div id="paymentList"></div>
+            </section>
+
+            <!-- Account Settings -->
+            <section class="panel" id="account" aria-labelledby="account-title">
+                <div class="panel-head">
+                    <h2 id="account-title"><span aria-hidden="true">⚙️</span>Account Settings</h2>
+                </div>
+                <dl class="settings-list">
+                    <div><dt>Name</dt><dd id="accountNameView"></dd></div>
+                    <div><dt>Email</dt><dd id="accountEmailView"></dd></div>
+                </dl>
+                <form id="accountForm" novalidate>
+                    <label for="accountName">Change display name</label>
+                    <input type="text" id="accountName" maxlength="60" required>
+                    <small class="field-hint">Your email is your demo login ID, so it can't be changed here.</small>
+                    <button type="submit" class="main-button" style="margin-top:16px">Save changes</button>
+                    <p id="accountMessage" class="form-message" role="status"></p>
+                </form>
+            </section>
+        </div>
+
+        <div class="dash-links">
+            <a href="home.html" class="small-button">← Home</a>
+            <a href="services.html" class="small-button">Services</a>
+            <a href="vet-locator.html" class="small-button">Vet Locator</a>
+            <a href="booking.html" class="small-button">Booking</a>
+        </div>
+
+        <p class="notice">
+            PAWFUR is an academic demo. Everything on this page is stored only in this browser (localStorage),
+            which is not secure storage, and plans and payments are simulated.
+        </p>
+    </main>
+
+</body>
+</html>

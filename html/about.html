@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - PAWFUR</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../js/01-storage.js" defer></script>
+    <script src="../js/02-session.js" defer></script>
+    <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/04-utils.js" defer></script>
+    <script src="../js/05-auth.js" defer></script>
+    <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/07-vet-locator.js" defer></script>
+    <script src="../js/08-booking.js" defer></script>
+    <script src="../js/09-chatbot.js" defer></script>
+    <script src="../js/10-services-plans.js" defer></script>
+    <script src="../js/11-checkout.js" defer></script>
+    <script src="../js/12-dashboard.js" defer></script>
+</head>
+<body class="app-body">
+
+    <header class="site-header">
+        <a href="home.html" class="logo"><span aria-hidden="true">🐾</span> PAWFUR</a>
+        <nav class="icon-nav" aria-label="Main navigation">
+            <a class="nav-icon" href="home.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+                <span class="nav-label">Home</span>
+            </a>
+            <a class="nav-icon active" href="about.html" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01" stroke-width="2.6"/></svg>
+                <span class="nav-label">About</span>
+            </a>
+            <a class="nav-icon" href="services.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+                <span class="nav-label">Services</span>
+            </a>
+            <a class="nav-icon" href="vet-locator.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span class="nav-label">Vet Locator</span>
+            </a>
+            <a class="nav-icon" href="booking.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg>
+                <span class="nav-label">Booking</span>
+            </a>
+            <a class="nav-icon" href="dashboard.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+                <span class="nav-label">Dashboard</span>
+            </a>
+        </nav>
+        <div class="user-area">
+            <!-- Shown only when logged in -->
+            <span id="userName" class="user-only hidden"></span>
+            <button id="logoutButton" class="logout-button user-only hidden" type="button">Logout</button>
+
+            <!-- Shown only to guests -->
+            <a href="login.html" id="loginButton" class="auth-link auth-link-outline guest-only hidden">Log In</a>
+            <a href="signup.html" id="signupButton" class="auth-link auth-link-primary guest-only hidden">Sign Up</a>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="content-card">
+            <h1>About PAWFUR 🐾</h1>
+            <p>
+                PAWFUR is a pet care website designed to help pet owners
+                find veterinary clinics and access helpful pet care information.
+            </p>
+
+            <h2>Our Mission</h2>
+            <p>
+                Our mission is to make finding veterinary services easier
+                and help pet owners become more informed about their pets' health.
+            </p>
+
+            <h2>Our Vision</h2>
+            <p>
+                We envision a community where every pet owner can easily
+                find information and veterinary assistance for their beloved animals.
+            </p>
+
+            <img class="about-image"
+                 src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1000"
+                 alt="Dogs playing together">
+        </section>
+    </main>
+
+</body>
+</html>
