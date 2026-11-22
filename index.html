@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,32 +9,53 @@
 <body class="landing-body">
 
     <header class="landing-header">
-        <a href="index.html" class="logo">🐾 PAWFUR</a>
-        <a href="login.html" class="nav-button">Log In</a>
+        <a href="index.html" class="logo"><span aria-hidden="true">🐾</span> PAWFUR</a>
+        <div class="landing-actions">
+            <a href="login.html" class="nav-button">Log In</a>
+            <a href="signup.html" class="auth-link auth-link-primary">Sign Up</a>
+        </div>
     </header>
 
-    <main class="landing-hero">
-        <div class="hero-text">
-            <h1>Welcome to PAWFUR! 🐾</h1>
-            <h2>Your Pet's Health, Our Priority.</h2>
-            <p>
-                Find trusted veterinarians, book appointments,
-                and get helpful information for your beloved pets.
-            </p>
-            <div class="hero-actions">
-                <a href="signup.html" class="main-button">Get Started</a>
-                <a href="home.html" class="guest-button">Browse as Guest</a>
+    <main class="landing-frame">
+        <section class="pet-hero">
+            <div class="pet-hero-copy">
+                <h1 class="hero-eyebrow">Welcome to PAWFUR! 🐾</h1>
+                <h2 class="hero-title">Your pet's health, <em>our priority.</em></h2>
+                <p>
+                    Find trusted veterinarians, book appointments,
+                    and get helpful information for your beloved pets.
+                </p>
+                <div class="hero-actions">
+                    <a href="signup.html" class="main-button">Get Started</a>
+                    <a href="home.html" class="guest-button">Browse as Guest</a>
+                </div>
+                <p class="login-note">
+                    Already have an account?
+                    <a href="login.html">Log in here</a>
+                </p>
             </div>
-            <p class="login-note">
-                Already have an account?
-                <a href="login.html">Log in here</a>
-            </p>
-        </div>
-
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=900"
-                 alt="Cute dogs">
-        </div>
+            <div class="pet-stage">
+                <div class="pet-sun" aria-hidden="true"></div>
+                <div class="pet-row">
+                    <img class="pet pet-dog" src="images/dog.svg" alt="Illustration of a golden dog">
+                    <img class="pet pet-cat" src="images/cat.svg" alt="Illustration of an orange cat">
+                    <img class="pet pet-rabbit" src="images/rabbit.svg" alt="Illustration of a white rabbit">
+                </div>
+            </div>
+            <div class="hero-orbs">
+                <a class="orb-link" href="services.html" aria-label="Services" title="Services"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg></a>
+                <a class="orb-link" href="vet-locator.html" aria-label="Vet Locator" title="Vet Locator"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></a>
+                <a class="orb-link" href="booking.html" aria-label="Booking" title="Booking"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg></a>
+            </div>
+            <svg class="hero-wave" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 62C180 22 330 22 480 54S780 94 960 58 1260 20 1440 58V140H0z"/></svg>
+            <div class="hero-note">
+                <div class="avatar-stack" aria-hidden="true"><span>🐶</span><span>🐱</span><span>🐰</span></div>
+                <div>
+                    <strong>Care for every furry friend</strong>
+                    <small>Pet-care info · Vet locator · Appointment requests</small>
+                </div>
+            </div>
+        </section>
     </main>
 
 </body>
