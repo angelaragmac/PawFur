@@ -51,7 +51,7 @@ if (bookingForm) {
     updateOtherAnimalField();
 
     // ----- Clinic selection -----
-    CLINICS.forEach(function(clinic) {
+    getAllClinics().forEach(function(clinic) {
         const option = document.createElement("option");
         option.value = clinic.id;
         option.textContent = clinic.name + (clinic.sample ? " (sample)" : "");
@@ -65,7 +65,8 @@ if (bookingForm) {
                 return;
             }
 
-            option.disabled = !!(clinic && clinic.services && clinic.services.indexOf(option.value) === -1);
+            // A clinic with no services listed (for example from OpenStreetMap) allows every service
+            option.disabled = !!(clinic && clinic.services && clinic.services.length > 0 && clinic.services.indexOf(option.value) === -1);
         });
 
         const current = serviceSelect.options[serviceSelect.selectedIndex];
@@ -95,7 +96,7 @@ if (bookingForm) {
 
         clinicInfo.appendChild(title);
         clinicInfo.appendChild(makeEl("p", "", "📍 " + (clinic.address || "Address not available")));
-        clinicInfo.appendChild(makeEl("p", "", "Services: " + (clinic.services || []).join(", ")));
+        clinicInfo.appendChild(makeEl("p", "", "Services: " + (clinic.services && clinic.services.length > 0 ? clinic.services.join(", ") : "Not listed (please ask the clinic)")));
         clinicInfo.appendChild(makeEl("p", "", "Contact: " + (clinic.phone || "Not available")));
         clinicInfo.appendChild(makeEl("p", "", "Hours: " + (clinic.hours || "Not available")));
     }
@@ -103,7 +104,7 @@ if (bookingForm) {
     clinicSelect.addEventListener("change", showClinicInfo);
 
     // Clinic from the link (booking.html?clinic=...) or remembered while the guest logged in.
-    // Only ids that exist in CLINICS are accepted.
+    // Only ids that exist in the clinic list (getAllClinics) are accepted.
     (function preselectClinic() {
         const fromLink = new URLSearchParams(window.location.search).get("clinic");
         let pending = "";

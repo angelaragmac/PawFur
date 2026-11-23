@@ -18,7 +18,8 @@ const STORAGE_KEYS = {
     transactions: "pawfurTransactions",  // [{ userEmail, id, planId, amount, ... }] (simulated)
     pendingPlan: "pawfurPendingPlan",    // plan chosen by a guest before logging in
     notifications: "pawfurNotifications",// [{ userEmail, id, type, title, message, read, ... }]
-    pendingClinic: "pawfurPendingClinic" // clinic id chosen by a guest before logging in (Book at This Clinic)
+    pendingClinic: "pawfurPendingClinic",// clinic id chosen by a guest before logging in (Book at This Clinic)
+    clinicResults: "pawfurClinicResults" // clinics from the last Vet Locator search (so Booking can find them)
 };
 
 // Reads a JSON value safely. Missing or broken data becomes an empty array/object.

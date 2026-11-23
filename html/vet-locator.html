@@ -7,11 +7,15 @@
     <title>Vet Locator | PAWFUR</title>
 
     <!-- CSS CONNECTION -->
+    <!-- Leaflet: free map library that draws the OpenStreetMap map (no API key) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="../style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <script src="../js/01-storage.js" defer></script>
     <script src="../js/02-session.js" defer></script>
     <script src="../js/03-plans-data.js" defer></script>
     <script src="../js/03b-clinics-data.js" defer></script>
+    <script src="../js/03c-osm-search.js" defer></script>
     <script src="../js/04-utils.js" defer></script>
     <script src="../js/05-auth.js" defer></script>
     <script src="../js/06-navigation.js" defer></script>
@@ -96,6 +100,7 @@
                     type="text"
                     id="locationInput"
                     placeholder="Example: Koronadal City"
+                    maxlength="80"
                     required
                 >
 
@@ -110,40 +115,44 @@
         <!-- CLINIC CARDS (filled by js/07-vet-locator.js after a search) -->
         <section id="clinicResults" class="clinic-results" aria-live="polite" hidden></section>
 
-        <!-- MAP SECTION -->
-        <section class="map-card">
+        <!-- MAP SECTION (OpenStreetMap, drawn by Leaflet in js/07-vet-locator.js) -->
+        <section class="map-card" id="mapSection">
 
             <div class="map-heading">
                 <h2>🐶 Veterinary Clinics Map</h2>
 
                 <span class="map-label">
-                    Google Maps
+                    OpenStreetMap
                 </span>
             </div>
 
             <div class="map-container">
-
-                <iframe
-                    id="vetMap"
-                    src="https://maps.google.com/maps?q=veterinary%20clinics%20Philippines&output=embed"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Veterinary Clinics Map">
-                </iframe>
-
+                <div id="vetMap" class="osm-map" role="region" aria-label="Map of veterinary clinics"></div>
             </div>
 
-            <a
-                id="mapsLink"
-                href="https://www.google.com/maps/search/veterinary+clinics+Philippines"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="maps-button">
+            <div class="map-links">
+                <a
+                    id="osmMapLink"
+                    href="https://www.openstreetmap.org/#map=6/12.88/121.77"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="maps-button">
 
-                Open in Google Maps ↗
+                    Open in OpenStreetMap ↗
 
-            </a>
+                </a>
+
+                <a
+                    id="googleMapsLink"
+                    href="https://www.google.com/maps/search/veterinary+clinics+Philippines"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="maps-button">
+
+                    Search on Google Maps ↗
+
+                </a>
+            </div>
 
         </section>
 
