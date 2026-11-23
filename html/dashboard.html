@@ -8,9 +8,11 @@
     <script src="../js/01-storage.js" defer></script>
     <script src="../js/02-session.js" defer></script>
     <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/03b-clinics-data.js" defer></script>
     <script src="../js/04-utils.js" defer></script>
     <script src="../js/05-auth.js" defer></script>
     <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/13-notifications.js" defer></script>
     <script src="../js/07-vet-locator.js" defer></script>
     <script src="../js/08-booking.js" defer></script>
     <script src="../js/09-chatbot.js" defer></script>
@@ -152,11 +154,19 @@
                 <div id="appointmentList"></div>
             </section>
 
+            <!-- Notifications (filled by js/13-notifications.js) -->
+            <section class="panel wide" id="notifications" aria-labelledby="notifications-title">
+                <div class="panel-head">
+                    <h2 id="notifications-title"><span aria-hidden="true">🔔</span>Notifications</h2>
+                    <button type="button" class="small-button" id="dashMarkAllRead" hidden>Mark all as read</button>
+                </div>
+                <div id="notificationList"></div>
+            </section>
+
             <!-- Payment History -->
             <section class="panel" id="payments" aria-labelledby="payments-title">
                 <div class="panel-head">
                     <h2 id="payments-title"><span aria-hidden="true">🧾</span>Payment History</h2>
-                    <span class="badge badge-demo">DEMO</span>
                 </div>
                 <div id="paymentList"></div>
             </section>

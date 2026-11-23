@@ -54,7 +54,7 @@ if (checkoutMain && !accessDenied) {
             // Show the chosen method in the payment summary
             checkoutForm.addEventListener("change", function() {
                 const chosen = checkoutForm.querySelector('input[name="paymentMethod"]:checked');
-                document.getElementById("payMethod").textContent = chosen ? chosen.value + " (demo)" : "Not chosen yet";
+                document.getElementById("payMethod").textContent = chosen ? chosen.value : "Not chosen yet";
                 methodError.textContent = "";
             });
 
@@ -66,7 +66,7 @@ if (checkoutMain && !accessDenied) {
                 let ref;
 
                 do {
-                    ref = "DEMO-" + day + "-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+                    ref = "PF-" + day + "-" + Math.random().toString(36).slice(2, 8).toUpperCase();
                 } while (existing.some(function(item) { return item.id === ref; }));
 
                 return ref;
@@ -84,14 +84,14 @@ if (checkoutMain && !accessDenied) {
                 const chosen = checkoutForm.querySelector('input[name="paymentMethod"]:checked');
 
                 if (!chosen) {
-                    methodError.textContent = "Please choose a demo payment method first.";
+                    methodError.textContent = "Please choose a payment method first.";
                     document.getElementById("methodGcash").focus();
                     return;
                 }
 
                 paymentInProgress = true;
                 simulateButton.disabled = true;
-                simulateButton.textContent = "Simulating demo payment…";
+                simulateButton.textContent = "Processing…";
 
                 window.setTimeout(function() {
                     const transactions = readStored(STORAGE_KEYS.transactions, "array");
@@ -105,7 +105,7 @@ if (checkoutMain && !accessDenied) {
                         amount: plan.price,
                         currency: "PHP",
                         method: chosen.value,
-                        status: "Simulated payment successful (DEMO)",
+                        status: "Payment recorded",
                         demo: true,
                         createdAt: paidAt
                     };
@@ -117,7 +117,7 @@ if (checkoutMain && !accessDenied) {
                         planId: plan.id,
                         selectedAt: record.pending.selectedAt,
                         paidAt: paidAt,
-                        paymentStatus: "Demo payment completed (simulated)",
+                        paymentStatus: "Payment recorded",
                         transactionId: transaction.id
                     };
                     latest.pending = null;
@@ -127,8 +127,8 @@ if (checkoutMain && !accessDenied) {
                         // Never show a success screen if nothing was saved
                         paymentInProgress = false;
                         simulateButton.disabled = false;
-                        simulateButton.textContent = "Simulate Payment";
-                        methodError.textContent = "The demo transaction could not be saved in this browser. Please try again.";
+                        simulateButton.textContent = "Confirm Payment";
+                        methodError.textContent = "Your payment could not be saved in this browser. Please try again.";
                         return;
                     }
 
@@ -136,7 +136,7 @@ if (checkoutMain && !accessDenied) {
                     checkoutSuccess.hidden = false;
                     document.getElementById("successReference").textContent = transaction.id;
                     document.getElementById("successPlan").textContent = plan.name;
-                    document.getElementById("successMethod").textContent = chosen.value + " (demo)";
+                    document.getElementById("successMethod").textContent = chosen.value;
                     document.getElementById("successAmount").textContent = formatPeso(plan.price);
                     checkoutSuccess.scrollIntoView({ block: "start" });
                 }, prefersReducedMotion() ? 0 : 700);

@@ -20,6 +20,13 @@ if (accessDenied) {
     const currentPage = getCurrentPageName();
     const backTo = ALLOWED_REDIRECTS.includes(currentPage) ? currentPage : "dashboard.html";
 
+    // Keep the clinic chosen in the Vet Locator while the guest logs in
+    const chosenClinic = new URLSearchParams(window.location.search).get("clinic");
+
+    if (currentPage === "booking.html" && chosenClinic) {
+        try { localStorage.setItem(STORAGE_KEYS.pendingClinic, chosenClinic); } catch (error) { /* optional */ }
+    }
+
     window.location.replace("login.html?redirect=" + encodeURIComponent(backTo));
 } else {
     document.body.classList.add("auth-ready");

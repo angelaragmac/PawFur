@@ -16,7 +16,9 @@ const STORAGE_KEYS = {
     pets: "pawfurPets",                  // [{ userEmail, name, animal, ... }]
     plans: "pawfurPlans",                // { "<email>": { active, pending } }
     transactions: "pawfurTransactions",  // [{ userEmail, id, planId, amount, ... }] (simulated)
-    pendingPlan: "pawfurPendingPlan"     // plan chosen by a guest before logging in
+    pendingPlan: "pawfurPendingPlan",    // plan chosen by a guest before logging in
+    notifications: "pawfurNotifications",// [{ userEmail, id, type, title, message, read, ... }]
+    pendingClinic: "pawfurPendingClinic" // clinic id chosen by a guest before logging in (Book at This Clinic)
 };
 
 // Reads a JSON value safely. Missing or broken data becomes an empty array/object.
