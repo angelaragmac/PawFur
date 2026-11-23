@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout (Demo) - PAWFUR</title>
+    <title>Checkout - PAWFUR</title>
     <link rel="stylesheet" href="../style.css">
     <script src="../js/01-storage.js" defer></script>
     <script src="../js/02-session.js" defer></script>
     <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/03b-clinics-data.js" defer></script>
     <script src="../js/04-utils.js" defer></script>
     <script src="../js/05-auth.js" defer></script>
     <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/13-notifications.js" defer></script>
     <script src="../js/07-vet-locator.js" defer></script>
     <script src="../js/08-booking.js" defer></script>
     <script src="../js/09-chatbot.js" defer></script>
@@ -60,22 +62,13 @@
     </header>
 
     <main class="page-container">
-        <div class="demo-banner" role="note">
-            <span aria-hidden="true">🧪</span>
-            <div>
-                <strong>DEMO · SIMULATED PAYMENT</strong><br>
-                This is an academic demonstration. No real money is transferred and no real payment
-                details are collected. Please do not enter any.
-            </div>
-        </div>
-
         <h1 class="page-heading">Checkout</h1>
-        <p class="page-subtitle">Review your selected plan, pick a demo payment method, then simulate the payment.</p>
+        <p class="page-subtitle">Review your selected plan, choose a payment method, then confirm your payment.</p>
 
         <!-- Shown when no plan is waiting for checkout -->
         <section id="checkoutEmpty" class="checkout-card checkout-empty" hidden>
             <h2>No plan selected</h2>
-            <p>Pick a Basic or Deluxe demo plan first, then come back here to simulate the payment.</p>
+            <p>Pick a Basic or Deluxe plan first, then come back here to complete your payment.</p>
             <p style="margin-top:18px">
                 <a href="services.html#packages" class="main-button">See the plans</a>
                 <a href="dashboard.html" class="ghost-button">Go to dashboard</a>
@@ -96,13 +89,13 @@
 
                 <form id="checkoutForm" class="checkout-card" novalidate>
                     <fieldset class="method-grid">
-                        <legend>Choose a demo payment method</legend>
+                        <legend>Choose a payment method</legend>
 
                         <div class="method-option">
                             <input type="radio" name="paymentMethod" id="methodGcash" value="GCash">
                             <label for="methodGcash">
                                 <span class="method-icon" aria-hidden="true">📱</span>
-                                <span><strong>GCash</strong><small>Demo e-wallet (nothing is connected)</small></span>
+                                <span><strong>GCash</strong><small>E-wallet</small></span>
                             </label>
                         </div>
 
@@ -110,7 +103,7 @@
                             <input type="radio" name="paymentMethod" id="methodPaypal" value="PayPal">
                             <label for="methodPaypal">
                                 <span class="method-icon" aria-hidden="true">🌐</span>
-                                <span><strong>PayPal</strong><small>Demo online payment (nothing is connected)</small></span>
+                                <span><strong>PayPal</strong><small>Online payment</small></span>
                             </label>
                         </div>
 
@@ -118,7 +111,7 @@
                             <input type="radio" name="paymentMethod" id="methodBank" value="Bank Transfer">
                             <label for="methodBank">
                                 <span class="method-icon" aria-hidden="true">🏦</span>
-                                <span><strong>Bank Transfer</strong><small>Demo bank transfer (no account details needed)</small></span>
+                                <span><strong>Bank Transfer</strong><small>Bank transfer</small></span>
                             </label>
                         </div>
                     </fieldset>
@@ -130,24 +123,24 @@
                 <h2 id="pay-summary-title">Payment summary</h2>
                 <dl class="pay-summary">
                     <div><dt>Plan</dt><dd id="payPlan">Basic Plan</dd></div>
-                    <div><dt>Billing</dt><dd>Demo · per month</dd></div>
+                    <div><dt>Billing</dt><dd>Per month</dd></div>
                     <div><dt>Payment method</dt><dd id="payMethod">Not chosen yet</dd></div>
-                    <div class="total"><dt>Total (illustrative)</dt><dd id="payTotal">₱149</dd></div>
+                    <div class="total"><dt>Total</dt><dd id="payTotal">₱149</dd></div>
                 </dl>
-                <button type="submit" form="checkoutForm" id="simulatePayment" class="main-button full-button">Simulate Payment</button>
-                <p class="checkout-fineprint">DEMO ONLY. Clicking the button creates a pretend transaction on this device.</p>
+                <button type="submit" form="checkoutForm" id="simulatePayment" class="main-button full-button">Confirm Payment</button>
+                <p class="checkout-fineprint">No card or bank details are collected on this page.</p>
             </aside>
         </div>
 
         <section id="checkoutSuccess" class="checkout-card checkout-success" role="status" aria-live="polite" hidden>
             <div class="success-mark" aria-hidden="true">✅</div>
-            <h2>Demo payment successful</h2>
-            <p>This was a <strong>simulated transaction</strong>. No real money was transferred.</p>
-            <div class="reference-code" id="successReference">DEMO-00000000-000000</div>
+            <h2>Payment recorded</h2>
+            <p>Your plan has been added to your PAWFUR account.</p>
+            <div class="reference-code" id="successReference">PF-00000000-000000</div>
             <dl class="pay-summary" style="max-width:420px;margin:0 auto 20px">
                 <div><dt>Plan</dt><dd id="successPlan"></dd></div>
                 <div><dt>Method</dt><dd id="successMethod"></dd></div>
-                <div class="total"><dt>Amount (illustrative)</dt><dd id="successAmount"></dd></div>
+                <div class="total"><dt>Amount</dt><dd id="successAmount"></dd></div>
             </dl>
             <a href="dashboard.html" class="main-button">Go to dashboard</a>
             <a href="services.html" class="ghost-button">Back to services</a>

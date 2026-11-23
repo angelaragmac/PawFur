@@ -11,9 +11,11 @@
     <script src="../js/01-storage.js" defer></script>
     <script src="../js/02-session.js" defer></script>
     <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/03b-clinics-data.js" defer></script>
     <script src="../js/04-utils.js" defer></script>
     <script src="../js/05-auth.js" defer></script>
     <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/13-notifications.js" defer></script>
     <script src="../js/07-vet-locator.js" defer></script>
     <script src="../js/08-booking.js" defer></script>
     <script src="../js/09-chatbot.js" defer></script>
@@ -104,6 +106,9 @@
             </form>
 
         </section>
+
+        <!-- CLINIC CARDS (filled by js/07-vet-locator.js after a search) -->
+        <section id="clinicResults" class="clinic-results" aria-live="polite" hidden></section>
 
         <!-- MAP SECTION -->
         <section class="map-card">

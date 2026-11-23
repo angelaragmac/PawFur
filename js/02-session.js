@@ -14,7 +14,7 @@ const ALLOWED_REDIRECTS = ["booking.html", "dashboard.html", "checkout.html"];
 const REDIRECT_NOTICES = {
     "booking.html": "Please log in or create an account before booking an appointment. 🐾",
     "dashboard.html": "Please log in to open your dashboard. 🐾",
-    "checkout.html": "Please log in or create an account to continue to the demo checkout. 🐾"
+    "checkout.html": "Please log in or create an account to continue to checkout. 🐾"
 };
 
 function getSafeRedirect() {

@@ -239,7 +239,7 @@ if (dashboardRoot && !accessDenied) {
             const table = makeEl("table", "data-table");
             const headRow = document.createElement("tr");
 
-            ["Pet", "Animal", "Service", "Date", "Time", "Status"].forEach(function(title) {
+            ["Pet", "Clinic", "Animal", "Service", "Date", "Time", "Status"].forEach(function(title) {
                 const th = makeEl("th", "", title);
                 th.scope = "col";
                 headRow.appendChild(th);
@@ -259,6 +259,7 @@ if (dashboardRoot && !accessDenied) {
 
                 [
                     ["Pet", booking.pet || "—"],
+                    ["Clinic", booking.clinicName || "Not specified"],
                     ["Animal", animal],
                     ["Service", booking.service || "—"],
                     ["Date", formatDateOnly(booking.date)],
@@ -297,13 +298,13 @@ if (dashboardRoot && !accessDenied) {
             if (record.active) {
                 const plan = PLANS[record.active.planId];
 
-                panel.appendChild(makeEl("span", "badge badge-ok", "Active (demo)"));
+                panel.appendChild(makeEl("span", "badge badge-ok", "Active"));
                 panel.appendChild(makeEl("p", "package-name", plan.name));
                 panel.appendChild(makeEl("p", "", plan.tagline));
 
                 const meta = makeEl("div", "package-meta");
                 meta.appendChild(makeEl("span", "badge", "Selected: " + formatTimestamp(record.active.selectedAt)));
-                meta.appendChild(makeEl("span", "badge badge-demo", record.active.paymentStatus || "Demo payment completed (simulated)"));
+                meta.appendChild(makeEl("span", "badge badge-ok", "Payment recorded"));
                 panel.appendChild(meta);
 
                 const list = makeEl("ul", "plan-list");
@@ -344,9 +345,9 @@ if (dashboardRoot && !accessDenied) {
                 const pendingPlan = PLANS[record.pending.planId];
                 const note = makeEl("div", "pending-note");
                 note.appendChild(makeEl("strong", "", "Selected: " + pendingPlan.name));
-                note.appendChild(document.createTextNode(" on " + formatTimestamp(record.pending.selectedAt) + ". Demo payment: awaiting."));
+                note.appendChild(document.createTextNode(" on " + formatTimestamp(record.pending.selectedAt) + ". Payment: awaiting."));
                 note.appendChild(document.createElement("br"));
-                const go = makeEl("a", "main-button", "Continue to demo checkout");
+                const go = makeEl("a", "main-button", "Continue to checkout");
                 go.href = "checkout.html";
                 note.appendChild(go);
                 panel.appendChild(note);
@@ -365,7 +366,7 @@ if (dashboardRoot && !accessDenied) {
             holder.textContent = "";
 
             if (mine.length === 0) {
-                holder.appendChild(makeEl("div", "empty-state", "No simulated payments yet."));
+                holder.appendChild(makeEl("div", "empty-state", "No payments yet."));
                 return 0;
             }
 
@@ -390,9 +391,9 @@ if (dashboardRoot && !accessDenied) {
 
                 [
                     ["Package", tx.planName || "—"],
-                    ["Amount", formatPeso(tx.amount) + " (illustrative)"],
-                    ["Method", (tx.method || "—") + " (demo)"],
-                    ["Reference", tx.id || "—"]
+                    ["Amount", formatPeso(tx.amount)],
+                    ["Method", tx.method || "—"],
+                    ["Reference", String(tx.id || "—").replace(/^DEMO-/, "PF-")]
                 ].forEach(function(pair) {
                     const td = makeEl("td", "", pair[1]);
                     td.dataset.label = pair[0];
@@ -401,7 +402,7 @@ if (dashboardRoot && !accessDenied) {
 
                 const statusCell = document.createElement("td");
                 statusCell.dataset.label = "Status";
-                statusCell.appendChild(makeEl("span", "badge badge-demo", tx.status || "Simulated (DEMO)"));
+                statusCell.appendChild(makeEl("span", "badge badge-ok", "Payment recorded"));
                 row.appendChild(statusCell);
 
                 tbody.appendChild(row);

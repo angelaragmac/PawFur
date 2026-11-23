@@ -8,9 +8,11 @@
     <script src="../js/01-storage.js" defer></script>
     <script src="../js/02-session.js" defer></script>
     <script src="../js/03-plans-data.js" defer></script>
+    <script src="../js/03b-clinics-data.js" defer></script>
     <script src="../js/04-utils.js" defer></script>
     <script src="../js/05-auth.js" defer></script>
     <script src="../js/06-navigation.js" defer></script>
+    <script src="../js/13-notifications.js" defer></script>
     <script src="../js/07-vet-locator.js" defer></script>
     <script src="../js/08-booking.js" defer></script>
     <script src="../js/09-chatbot.js" defer></script>
@@ -65,6 +67,16 @@
             <p>Fill in your details to request a veterinary appointment.</p>
 
             <form id="bookingForm">
+                <!-- Veterinary clinic: preselected from Vet Locator (booking.html?clinic=<id>) or chosen here -->
+                <div class="clinic-picker" id="clinicPicker">
+                    <label for="clinicSelect">Veterinary Clinic</label>
+                    <select id="clinicSelect" required>
+                        <option value="" disabled selected>Select a clinic</option>
+                    </select>
+                    <div id="selectedClinicInfo" class="selected-clinic" hidden></div>
+                    <small class="field-hint">Want to compare clinics first? <a href="vet-locator.html">Return to Vet Locator</a></small>
+                </div>
+
                 <label for="ownerName">Owner Name</label>
                 <input type="text" id="ownerName" placeholder="Enter your name" required>
 
@@ -115,18 +127,35 @@
 
             <section id="bookingSuccess" class="booking-success" role="status" aria-live="polite" hidden>
                 <div class="booking-success-icon" aria-hidden="true">🐾</div>
-                <h2>Appointment Request Saved!</h2>
+                <h2>Your appointment request has been submitted successfully!</h2>
                 <p id="bookingResult" class="form-message">
-                    Your request has been saved. Please contact a veterinary clinic to confirm your appointment.
+                    Thank you for choosing PAWFUR. You can now view your appointment details in your dashboard.
                 </p>
+                <dl id="bookingDetails" class="pay-summary booking-details"></dl>
+                <p class="booking-success-note">This is a request only. Please contact the selected clinic to confirm availability.</p>
                 <p id="bookingPriorityNote" class="priority-note" hidden>⭐ Marked as a priority request (Deluxe demo plan)</p>
-                <a href="vet-locator.html" class="main-button full-button booking-locator-button">
+                <a href="dashboard.html#appointments" class="main-button full-button booking-locator-button">
+                    📅 View in Dashboard
+                </a>
+                <a href="vet-locator.html" class="ghost-button full-button booking-locator-button">
                     📍 Find Veterinary Services
                 </a>
-                <p class="booking-success-note">You can use the Vet Locator to search for clinics near your location, or see the request on your <a href="dashboard.html"><strong>dashboard</strong></a>.</p>
             </section>
         </section>
     </main>
+
+    <!-- CONFIRMATION DIALOG (opened by js/08-booking.js before the request is saved) -->
+    <div class="pf-modal-backdrop" id="confirmModal" hidden>
+        <div class="pf-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <h2 id="confirmTitle">Confirm your appointment request</h2>
+            <p>Would you like to proceed with your appointment request?</p>
+            <dl id="confirmSummary" class="pay-summary"></dl>
+            <div class="modal-actions">
+                <button type="button" id="confirmCancel" class="ghost-button">Cancel</button>
+                <button type="button" id="confirmProceed" class="main-button">Confirm</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
